@@ -1853,7 +1853,7 @@ GameObject:
   - component: {fileID: 1841849028}
   m_Layer: 0
   m_Name: Map
-  m_TagString: Untagged
+  m_TagString: MapParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1933,6 +1933,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GenerationManager
   maps:
   - {fileID: 8157476479069678745, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
+  toggleSpawnCount: 1
+  count: 0
+  spawnEnabled: 1
   MainMap: {fileID: 1085316059}
 --- !u!1 &2002619030
 GameObject:
@@ -6926,6 +6929,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1841849029}
     m_Modifications:
+    - target: {fileID: 202978614975014614, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 243578418281790277, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625496721777448018, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4672519983270876035, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
       propertyPath: cameraMove
       value: 
@@ -6994,9 +7009,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7245055613713752034, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9088202806217334559, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
       propertyPath: m_Name
-      value: -----MAIN-----
+      value: Room
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

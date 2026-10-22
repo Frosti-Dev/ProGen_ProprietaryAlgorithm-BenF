@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 5964531252673466964}
   m_Layer: 0
   m_Name: Obstacles (Block S)
-  m_TagString: Untagged
+  m_TagString: SouthWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8216362294800460123
 Transform:
   m_ObjectHideFlags: 0
@@ -320,11 +320,11 @@ GameObject:
   - component: {fileID: 1764693196037842551}
   m_Layer: 0
   m_Name: Obstacles (Block E)
-  m_TagString: Untagged
+  m_TagString: EastWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8219637621917285134
 Transform:
   m_ObjectHideFlags: 0
@@ -665,11 +665,11 @@ GameObject:
   - component: {fileID: 2757253071853848948}
   m_Layer: 0
   m_Name: Obstacles (Block N)
-  m_TagString: Untagged
+  m_TagString: NorthWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &73363668735905648
 Transform:
   m_ObjectHideFlags: 0
@@ -1769,11 +1769,11 @@ GameObject:
   - component: {fileID: 2021204147127474745}
   m_Layer: 0
   m_Name: Obstacles (Block W)
-  m_TagString: Untagged
+  m_TagString: WestWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8922168764048979611
 Transform:
   m_ObjectHideFlags: 0
@@ -2038,7 +2038,7 @@ GameObject:
   - component: {fileID: 4279391316235540706}
   - component: {fileID: 8157476479069678745}
   m_Layer: 0
-  m_Name: -----MAIN-----
+  m_Name: Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3675,3 +3675,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe58e3883d23c2468d25c293a9e35b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  spawnpoints: []
+  northSpawn: {fileID: 0}
+  eastSpawn: {fileID: 0}
+  southSpawn: {fileID: 0}
+  westSpawn: {fileID: 0}
+  lastRoom: {fileID: 0}
+  lastRoomDir: 
+  BlockNorth: 0
+  BlockSouth: 0
+  BlockWest: 0
+  BlockEast: 0
+  NorthWall: {fileID: 0}
+  SouthWall: {fileID: 0}
+  WestWall: {fileID: 0}
+  EastWall: {fileID: 0}

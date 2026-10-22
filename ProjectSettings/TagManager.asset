@@ -9,6 +9,11 @@ TagManager:
   - EastSpawn
   - SouthSpawn
   - WestSpawn
+  - MapParent
+  - NorthWall
+  - SouthWall
+  - WestWall
+  - EastWall
   layers:
   - Default
   - TransparentFX
