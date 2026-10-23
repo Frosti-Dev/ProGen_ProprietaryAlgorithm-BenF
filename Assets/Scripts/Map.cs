@@ -45,6 +45,7 @@ public class Map : MonoBehaviour
 
     private void Awake()
     {
+        //add references for prefabs
         mapParent = GameObject.FindGameObjectWithTag("MapParent");
 
         potentialSpawns.Clear();
@@ -68,6 +69,7 @@ public class Map : MonoBehaviour
 
     private void OnEnable()
     {
+        //after instantiate
         if(genManager != null)
         {
             genManager.AllCurRooms.Add(this);
@@ -78,6 +80,7 @@ public class Map : MonoBehaviour
 
     private IEnumerator GenerationRoutine()
     {
+        //generate
         yield return new WaitForFixedUpdate();
 
         CheckSurroundingRooms();
@@ -100,11 +103,13 @@ public class Map : MonoBehaviour
 
     private void Update()
     {
+        //check blocks
         if (BlockNorth) NorthWall.SetActive(true);
         if (BlockSouth) SouthWall.SetActive(true);
         if (BlockWest) WestWall.SetActive(true);
         if (BlockEast) EastWall.SetActive(true);
 
+        //always be checking surrounding rooms
         CheckSurroundingRooms();
     }
 
@@ -116,6 +121,7 @@ public class Map : MonoBehaviour
         {
             if (genManager.count >= genManager.maxRooms) break;
 
+            //check if no room is made
             int NoRoomChance = Random.Range(0, genManager.noRoomChance);
             if (NoRoomChance == 0)
             {
@@ -124,8 +130,10 @@ public class Map : MonoBehaviour
 
             else
             {
+                //increase room count
                 genManager.count++;
 
+                //make random room
                 Map GO = Instantiate(map, spawn.position, spawn.rotation, mapParent.transform);
                 newMapScript = GO.GetComponent<Map>();
                 newMapScript.lastRoom = this.gameObject;

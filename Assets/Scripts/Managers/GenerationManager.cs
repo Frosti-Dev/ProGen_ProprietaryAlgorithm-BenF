@@ -41,6 +41,7 @@ public class GenerationManager : MonoBehaviour
         }
     }
 
+    //To start
     public void StartGeneration()
     {
         count = 0;
