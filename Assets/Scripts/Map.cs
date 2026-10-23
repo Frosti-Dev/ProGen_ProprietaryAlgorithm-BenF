@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using Unity.Collections;
@@ -6,15 +7,17 @@ using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    [SerializeField] private List<Transform> spawnpoints = new List<Transform>();
+    [SerializeField] private GenerationManager genManager;
 
+    private List<Transform> potentialSpawns = new List<Transform>();
+    [SerializeField] private GameObject lastRoom = null;
+    [SerializeField] private string lastRoomDir = null;
+
+    [Header("Spawn Points")]
     public GameObject northSpawn;
     public GameObject eastSpawn;
     public GameObject southSpawn;
     public GameObject westSpawn;
-
-    [SerializeField] private GameObject lastRoom = null;
-    [SerializeField] private string lastRoomDir = null;
 
     #region BlockPaths
     [SerializeField] private bool BlockNorth = false;
@@ -22,6 +25,7 @@ public class Map : MonoBehaviour
     [SerializeField] private bool BlockWest = false;
     [SerializeField] private bool BlockEast = false;
 
+    [Header("Walls")]
     [SerializeField] private GameObject NorthWall;
     [SerializeField] private GameObject SouthWall;
     [SerializeField] private GameObject WestWall;
@@ -29,80 +33,67 @@ public class Map : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private Map newMapScript;
-    [SerializeField] private GameObject mapParent;
-    [SerializeField] private GenerationManager genManager;
+    private Map newMapScript;
+    private GameObject mapParent;
 
-    private void Start()
+    #region detector
+    [Header("Detection Settings")]
+    [SerializeField] private LayerMask roomLayer; // Set this to your "Room" or "Map" physics layer!
+    [SerializeField] private float checkDistance = 10f;
+
+    #endregion
+
+    private void Awake()
     {
-        spawnpoints.Clear();
-
         mapParent = GameObject.FindGameObjectWithTag("MapParent");
 
-        //spawns
-        northSpawn = GameObject.FindGameObjectWithTag("NorthSpawn");
-        spawnpoints.Add(northSpawn.transform);
-        southSpawn = GameObject.FindGameObjectWithTag("SouthSpawn");
-        spawnpoints.Add(southSpawn.transform);
-        westSpawn = GameObject.FindGameObjectWithTag("WestSpawn");
-        spawnpoints.Add(westSpawn.transform);
-        eastSpawn = GameObject.FindGameObjectWithTag("EastSpawn");
-        spawnpoints.Add(eastSpawn.transform);
+        potentialSpawns.Clear();
+
+        potentialSpawns.Add(northSpawn.transform);
+        potentialSpawns.Add(southSpawn.transform);
+        potentialSpawns.Add(westSpawn.transform);
+        potentialSpawns.Add(eastSpawn.transform);
 
         //walls
-        NorthWall = GameObject.FindGameObjectWithTag("NorthWall");
         NorthWall.SetActive(false);
-        SouthWall = GameObject.FindGameObjectWithTag("SouthWall");
         SouthWall.SetActive(false);
-        WestWall = GameObject.FindGameObjectWithTag("WestWall");
         WestWall.SetActive(false);
-        EastWall = GameObject.FindGameObjectWithTag("EastWall");
         EastWall.SetActive(false);
 
-        genManager = ServiceHub.Instance.generationManager;
+        if(ServiceHub.Instance != null)
+        {
+            genManager = ServiceHub.Instance.generationManager;
+        }
     }
 
     private void OnEnable()
-    { 
-        Debug.Log("Cur Room POS: " + this.gameObject.transform.position);
-        if(lastRoom != null)
+    {
+        if(genManager != null)
         {
-            Debug.Log("Last Room POS: " + lastRoom.gameObject.transform.position);
+            genManager.AllCurRooms.Add(this);
+
+            StartCoroutine(GenerationRoutine());
         }
+    }
 
-        if (lastRoom != null && lastRoom.gameObject.transform.position.y != this.gameObject.transform.position.y)
+    private IEnumerator GenerationRoutine()
+    {
+        yield return new WaitForFixedUpdate();
+
+        CheckSurroundingRooms();
+
+        if (genManager != null && genManager.spawnEnabled)
         {
-            if (lastRoom.gameObject.transform.position.y > this.gameObject.transform.position.y)
+            if(genManager.count >= genManager.maxRooms)
             {
-                lastRoomDir = "North";
-                spawnpoints.Remove(northSpawn.transform);
-            }
-            else
-            {
-                lastRoomDir = "South";
-                spawnpoints.Remove(southSpawn.transform);
+                yield break;
             }
 
-        }
-        else if (lastRoom != null && lastRoom.gameObject.transform.position.x != this.gameObject.transform.position.x)
-        {
-            if (lastRoom.gameObject.transform.position.x > this.gameObject.transform.position.x)
+            if (genManager.count >= genManager.toggleSpawnCount)
             {
-                lastRoomDir = "East";
-                spawnpoints.Remove(southSpawn.transform);
-
-            }
-            else
-            {
-                lastRoomDir = "West";
-                spawnpoints.Remove(westSpawn.transform);
+                Initialize(genManager.maps[0]);
             }
         }
-        
-        BlockPath(lastRoomDir);
-
-        int randomID = Random.Range(0, 1);
-        Initialize(genManager.maps[0], genManager.count);
     }
 
     private void Update()
@@ -113,21 +104,46 @@ public class Map : MonoBehaviour
         if (BlockEast) EastWall.SetActive(true);
     }
 
-    public int Initialize(Map map, int count)
+    public void Initialize(Map map)
     {
-        count++;
+        List<Transform> activeSpawns = new List<Transform>(potentialSpawns);
 
-        if (genManager.spawnEnabled)
+        foreach (Transform spawn in activeSpawns)
         {
-            foreach (Transform spawn in spawnpoints)
+
+            if (genManager.count >= genManager.maxRooms) break;
+
+            genManager.count++;
+
+            Map GO = Instantiate(map, spawn.position, spawn.rotation, mapParent.transform);
+            newMapScript = GO.GetComponent<Map>();
+            newMapScript.lastRoom = this.gameObject;
+
+            if (GO.gameObject.transform.position.y != this.gameObject.transform.position.y)
             {
-                Map GO = Instantiate(map, spawn.position, spawn.rotation, mapParent.transform);
-                newMapScript = GO.GetComponent<Map>();
-                newMapScript.lastRoom = this.gameObject;
+                if (GO.gameObject.transform.position.y > this.gameObject.transform.position.y)
+                {
+                    GO.lastRoomDir = "South";
+                }
+                else
+                {
+                    GO.lastRoomDir = "North";
+                }
+
+            }
+            else if (GO.gameObject.transform.position.x != this.gameObject.transform.position.x)
+            {
+                if (GO.gameObject.transform.position.x > this.gameObject.transform.position.x)
+                {
+                    GO.lastRoomDir = "West";
+                }
+                else
+                {
+                    GO.lastRoomDir = "East";
+                }
+                
             }
         }
-
-        return count;
     }
 
     public void BlockPath(string blockDirection)
@@ -147,6 +163,44 @@ public class Map : MonoBehaviour
         if (blockDirection == "East")
         {
             BlockEast = true;
+        }
+    }
+
+
+    public bool IsObjectInDirection(Vector2 direction)
+    {
+        Vector2 checkPosition = (Vector2)transform.position + (direction * checkDistance);
+
+        Collider2D hit = Physics2D.OverlapCircle(checkPosition, 0.5f, roomLayer);
+
+        return hit != null;
+
+    }
+
+    public void CheckSurroundingRooms()
+    {
+        // Check North 
+        if (IsObjectInDirection(Vector2.up))
+        {
+            potentialSpawns.Remove(northSpawn.transform);
+        }
+
+        // Check East 
+        if (IsObjectInDirection(Vector2.right))
+        {
+            potentialSpawns.Remove(eastSpawn.transform);
+        }
+
+        // Check South 
+        if (IsObjectInDirection(Vector2.down))
+        {
+            potentialSpawns.Remove(southSpawn.transform);
+        }
+
+        // Check West
+        if (IsObjectInDirection(Vector2.left))
+        {
+            potentialSpawns.Remove(westSpawn.transform);
         }
     }
 }

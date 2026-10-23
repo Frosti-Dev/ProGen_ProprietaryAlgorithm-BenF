@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2115076207398184817}
   - component: {fileID: 9192358089247394338}
   - component: {fileID: 5964531252673466964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Obstacles (Block S)
   m_TagString: SouthWall
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 1536315397666143818}
   - component: {fileID: 471931260376134063}
   - component: {fileID: 1764693196037842551}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Obstacles (Block E)
   m_TagString: EastWall
   m_Icon: {fileID: 0}
@@ -582,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6978982341744409174}
   - component: {fileID: 6207543262762284222}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: S Gizmo_SpawnPoint
   m_TagString: SouthSpawn
   m_Icon: {fileID: 0}
@@ -625,7 +625,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6286217315660447480}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NextPotentialRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 9084884695677648939}
   - component: {fileID: 1405562071403349390}
   - component: {fileID: 2757253071853848948}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Obstacles (Block N)
   m_TagString: NorthWall
   m_Icon: {fileID: 0}
@@ -927,7 +927,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3758773864922480533}
   - component: {fileID: 1981888407422897710}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: E Gizmo_SpawnPoint
   m_TagString: EastSpawn
   m_Icon: {fileID: 0}
@@ -973,7 +973,7 @@ GameObject:
   - component: {fileID: 6400320452961708437}
   - component: {fileID: 783716008892776693}
   - component: {fileID: 451862946684139560}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Obstacles (Main)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1721,7 +1721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8175919541786578866}
   - component: {fileID: 7472799781099961535}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: N Gizmo_SpawnPoint
   m_TagString: NorthSpawn
   m_Icon: {fileID: 0}
@@ -1767,7 +1767,7 @@ GameObject:
   - component: {fileID: 2871028126471081801}
   - component: {fileID: 6204388081597252384}
   - component: {fileID: 2021204147127474745}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Obstacles (Block W)
   m_TagString: WestWall
   m_Icon: {fileID: 0}
@@ -1991,7 +1991,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8871331315334034663}
   - component: {fileID: 2517355161005156794}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: W Gizmo_SpawnPoint
   m_TagString: WestSpawn
   m_Icon: {fileID: 0}
@@ -2036,8 +2036,9 @@ GameObject:
   - component: {fileID: 4819079284725500871}
   - component: {fileID: 3376613381552186137}
   - component: {fileID: 4279391316235540706}
+  - component: {fileID: 4451007259632418746}
   - component: {fileID: 8157476479069678745}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3663,6 +3664,52 @@ TilemapRenderer:
   m_SortOrder: 0
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
+--- !u!61 &4451007259632418746
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088202806217334559}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 16, y: 10}
+  m_EdgeRadius: 0
 --- !u!114 &8157476479069678745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3675,18 +3722,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe58e3883d23c2468d25c293a9e35b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  spawnpoints: []
-  northSpawn: {fileID: 0}
-  eastSpawn: {fileID: 0}
-  southSpawn: {fileID: 0}
-  westSpawn: {fileID: 0}
+  genManager: {fileID: 0}
   lastRoom: {fileID: 0}
   lastRoomDir: 
+  northSpawn: {fileID: 6556030142896846585}
+  eastSpawn: {fileID: 5954631933534875321}
+  southSpawn: {fileID: 3042797582470515245}
+  westSpawn: {fileID: 8573861733056603596}
   BlockNorth: 0
   BlockSouth: 0
   BlockWest: 0
   BlockEast: 0
-  NorthWall: {fileID: 0}
-  SouthWall: {fileID: 0}
-  WestWall: {fileID: 0}
-  EastWall: {fileID: 0}
+  NorthWall: {fileID: 4625496721777448018}
+  SouthWall: {fileID: 202978614975014614}
+  WestWall: {fileID: 7245055613713752034}
+  EastWall: {fileID: 243578418281790277}
+  roomLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  checkDistance: 10

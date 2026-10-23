@@ -9,12 +9,19 @@ using UnityEngine.Tilemaps;
 
 public class GenerationManager : MonoBehaviour
 {
+    [Header("Generation Settings")]
     public List<Map> maps = new List<Map>();
     public int toggleSpawnCount = 5;
-    public int count = 0;
     public bool spawnEnabled = true;
 
-    [SerializeField] private Map MainMap;
+    [Header("Room Limits")]
+    public int count = 0;
+    public int maxRooms = 15;
+
+    [Header("Tracking Info")]
+    public List<Map> AllCurRooms = new List<Map>();
+
+    [SerializeField] private Map MainRoom;
 
     private void Start()
     {
@@ -35,6 +42,8 @@ public class GenerationManager : MonoBehaviour
 
     public void StartGeneration()
     {
-        count = MainMap.Initialize(MainMap, count);
+        count = 0;
+        AllCurRooms.Clear();
+        MainRoom.Initialize(MainRoom);
     }
 }

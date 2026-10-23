@@ -1933,6 +1933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GenerationManager
   maps:
   - {fileID: 8157476479069678745, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
+  AllCurRooms: []
   toggleSpawnCount: 1
   count: 0
   spawnEnabled: 1
@@ -7013,6 +7014,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8157476479069678745, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
+      propertyPath: genManager
+      value: 
+      objectReference: {fileID: 1900322148}
     - target: {fileID: 9088202806217334559, guid: 45d3156f160efe94f8b88532838cd0fa, type: 3}
       propertyPath: m_Name
       value: Room
