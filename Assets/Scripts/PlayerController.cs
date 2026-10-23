@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -74,6 +75,11 @@ public class PlayerController : MonoBehaviour
             lastMoveInput = moveInput;
             
         }
+    }
+
+    public void OnReset()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }

@@ -11,8 +11,9 @@ public class GenerationManager : MonoBehaviour
 {
     [Header("Generation Settings")]
     public List<Map> maps = new List<Map>();
-    public int toggleSpawnCount = 5;
     public bool spawnEnabled = true;
+    public int toggleSpawnCount = 5;
+    public int noRoomChance = 3;
 
     [Header("Room Limits")]
     public int count = 0;

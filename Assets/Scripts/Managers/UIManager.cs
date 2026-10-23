@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public TMP_Text coinText;
     public PlayerController player;
 
     private void Start()
@@ -13,7 +12,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        coinText.text = $"Coins: {player.coins}";
+        //coinText.text = $"Coins: {player.coins}";
     }
 
 }
